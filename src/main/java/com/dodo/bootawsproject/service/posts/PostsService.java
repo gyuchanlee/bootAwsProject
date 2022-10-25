@@ -2,12 +2,16 @@ package com.dodo.bootawsproject.service.posts;
 
 import com.dodo.bootawsproject.domain.posts.Posts;
 import com.dodo.bootawsproject.domain.posts.PostsRepository;
+import com.dodo.bootawsproject.web.dto.PostsListResponseDto;
 import com.dodo.bootawsproject.web.dto.PostsResponseDto;
 import com.dodo.bootawsproject.web.dto.PostsSaveRequestDto;
 import com.dodo.bootawsproject.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RequiredArgsConstructor
@@ -34,5 +38,19 @@ public class PostsService {
         Posts entity = postsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글은 없습니다. id='"+id+"'")); // db에서 entity가 쿼리해옴
         return new PostsResponseDto(entity); // controller로 보낼 dto에 담음.
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findAllDesc() {
+        return postsRepository.findAllDesc().stream()
+                .map(PostsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        Posts posts = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        postsRepository.delete(posts);
     }
 }
