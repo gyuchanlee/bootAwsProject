@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,14 +29,14 @@ public class User {
     private Role role; // 권한 관리하는 Role 클래스 따로 생성
 
     @Builder
-    public User(String name, String email, String picture, Role role) {
+    public Users(String name, String email, String picture, Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
     }
 
-    public User update(String name, String picture) { // update 구문은 Entity에서 관리
+    public Users update(String name, String picture) { // update 구문은 Entity에서 관리
         this.name = name;
         this.picture = picture;
 
