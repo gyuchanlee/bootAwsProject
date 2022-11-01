@@ -13,7 +13,7 @@ cache:
 
 script: "./gradlew clean build"
 
-# when CI complete, alarm sends email
+# when CI complete, alarm send email
 notifications:
   email:
     recipients:
