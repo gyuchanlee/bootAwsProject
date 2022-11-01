@@ -32,6 +32,17 @@ deploy:
     local_dir: deploy # before_deploy에서 생성한 디렉토라
     wait-until-deployed: true
 
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings 등록 변수
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: hoo788-springboot2-webservice-build # S3 버킷
+    key: bootAwsProject.zip # 빌드파일을 압축해서 전달
+    bundle-type: zip # 압축 확장자
+    application: springboot2-webservice # codedeploy 등록 애플리케이션 이름
+    deployment_group: springboot2-webservice-group # codedeploy 앱에 등록한 배포그룹 명
+    region: ap-northeast-2
+    wait-until-deploy: true
+
 # when CI complete, alarm send email
 notifications:
   email:
