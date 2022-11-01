@@ -17,7 +17,7 @@ before_install:
 script: "./gradlew clean build"
 
 before_deploy:
-  - zip -r bootAwsProject
+  - zip -r bootAwsProject *
   - mkdir -p deploy
   - mv bootAwsProject.zip deploy/bootAwsProject.zip
 
