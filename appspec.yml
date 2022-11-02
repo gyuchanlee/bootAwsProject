@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/app/step2/zip/
+    destination: /home/ec2-user/app/step3/zip/
     overwrite: yes
 
 permissions:
@@ -12,7 +12,15 @@ permissions:
     group: ec2-user
 
 hooks:
+  AfterInstall:
+    - location: stop.sh # 엔진엑스와 연결되어 있지 않는 스프링부트 프로젝트 종료
+      timeout: 60
+      runas: ec2-user
   ApplicationStart:
-    - location: deploy.sh
+    - location: start.sh # 엔진엑스와 연결되어 있지 않는 port로 새버젼 스프링부트 시작
+      timeout: 60
+      runas: ec2-user
+  ValidateService:
+    - location: health.sh # 실행 시킨 부트프로젝트가 정상 실행인지 체크
       timeout: 60
       runas: ec2-user
