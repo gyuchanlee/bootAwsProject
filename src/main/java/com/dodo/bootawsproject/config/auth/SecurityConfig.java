@@ -6,8 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class SecurityConfig {
                 .headers().frameOptions().disable() // h2-console화면을 보기 위해 해당 옵션들을 꺼둠.
                 .and()
                 .authorizeRequests() // URL별 권환 관리를 설정하는 옵션의 시작점.
-                .antMatchers("/","/css/**","/images/**","/js/**","/h2-console/**").permitAll() //전체 열람 권한
+                .antMatchers("/","/css/**","/images/**","/js/**","/h2-console/**","/profile").permitAll() //전체 열람 권한
                 .antMatchers("/api/v1/**").hasRole(Role.USER.name()) // 권한 관리 대상을 지정하는 옵션. url, http 메소드별로 관리 가능. + USER권한만 열람.
                 .anyRequest().authenticated() // 설정된 값들 이외 나머지 url를 나타냄 + 인증된 사용자들에게만 허용.
                 .and()
