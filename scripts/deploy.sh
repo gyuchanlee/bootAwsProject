@@ -8,7 +8,7 @@ cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
 echo "> 현재 구동 중인 애플리케이션 PID 확인"
 
-CURRENT_PID=$(pgrep -fl bootAwsProject | grep java | awk '{print $1}')
+CURRENT_PID=$(ps -ef | grep bootAwsProject | grep jar | awk '{print $2}')
 
 echo "> 현재 구동 중인 애플리케이션 PID: $CURRENT_PID"
 
